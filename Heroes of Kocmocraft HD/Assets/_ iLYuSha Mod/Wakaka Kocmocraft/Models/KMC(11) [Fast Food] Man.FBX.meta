@@ -26,7 +26,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Fastfoodman
-    second: {fileID: 2100000, guid: c31f305ee3232c6498d4fe7cbb7fd8fb, type: 2}
+    second: {fileID: 2100000, guid: dfc26524bfa7aee44a1dacd2fe676af4, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
