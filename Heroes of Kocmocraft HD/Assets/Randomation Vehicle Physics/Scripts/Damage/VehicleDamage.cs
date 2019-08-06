@@ -220,7 +220,7 @@ namespace RVP
             Vector3 clampedVel = Vector3.ClampMagnitude(damageForce, damageForceLimit);//Clamped velocity of collision
             Vector3 normalizedVel = damageForce.normalized;
             float surfaceDot;//Dot production of collision velocity and surface normal
-            float massFactor = 5;//Multiplier for damage based on mass of other rigidbody
+            float massFactor = 1;//Multiplier for damage based on mass of other rigidbody
             Transform curDamagePart;
             float damagePartFactor;
             MeshFilter curDamageMesh;
