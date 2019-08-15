@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2035111234}
-  m_IndirectSpecularColor: {r: 194.13612, g: 274.83295, b: 436.35754, a: 1}
+  m_IndirectSpecularColor: {r: 193.53578, g: 274.03314, b: 435.31836, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22859,7 +22859,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &381833545
 GameObject:
   m_ObjectHideFlags: 0
@@ -75225,11 +75225,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2469526348072503855, guid: 3f954f3b1e77f644690f4092b7539a60,
-        type: 3}
-      propertyPath: m_Name
-      value: Prototype (04) - Cuckoo
-      objectReference: {fileID: 0}
     - target: {fileID: 197166747328920170, guid: 3f954f3b1e77f644690f4092b7539a60,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -75284,6 +75279,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2469526348072503855, guid: 3f954f3b1e77f644690f4092b7539a60,
+        type: 3}
+      propertyPath: m_Name
+      value: Prototype (04) - Cuckoo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f954f3b1e77f644690f4092b7539a60, type: 3}
