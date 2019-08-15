@@ -179,6 +179,7 @@ namespace RVP
                 if (engine)
                 {
                     maxRPM = engine.torqueCurve.keys[engine.torqueCurve.length - 1].time;
+                    Debug.Log(maxRPM);
                 }
                 else
                 {
