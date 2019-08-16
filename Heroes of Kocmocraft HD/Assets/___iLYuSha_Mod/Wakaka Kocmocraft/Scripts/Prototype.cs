@@ -112,7 +112,7 @@ namespace Kocmoca
             {
                 collider.sharedMesh = mesh;
             }
-            string tempPath = MESH_PATH + obj.name + "_mesh.asset";
+            string tempPath = MESH_PATH + obj.name + " _mesh.asset";
             AssetDatabase.CreateAsset (meshFilter.sharedMesh, tempPath);
             //PrefabUtility.DisconnectPrefabInstance(obj);
             Mesh target = meshFilter.sharedMesh;
