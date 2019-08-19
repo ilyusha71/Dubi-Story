@@ -58,7 +58,7 @@ MonoBehaviour:
   - {fileID: 5885027944853432313}
   - {fileID: 8529680755103059461}
   countPainting: 4
-  nowPainting: 3
+  nowPainting: 2
   lastPainting: 1
   cmFreeLook: {fileID: 0}
 --- !u!205 &1963271741294732483
@@ -1192,7 +1192,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1269,7 +1269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1277,11 +1277,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.7485437
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.6454612
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 027f5c31e8263374fbbc7d1330c70571, type: 3}
       propertyPath: m_LocalRotation.x

@@ -49,6 +49,8 @@ namespace Kocmoca
             Transform model = transform.GetChild (2); // 2 = Painting I
             if (model.childCount > 0)
                 mesh = CombineMesh (model.gameObject);
+            // else if (model.childCount == 1)
+            //     mesh = model.GetComponentInChildren<MeshFilter> ().sharedMesh;
             else
                 mesh = model.GetComponent<MeshFilter> ().sharedMesh;
             centre = mesh.bounds.center;
