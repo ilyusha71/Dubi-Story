@@ -788,7 +788,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
 --- !u!1 &8336336417806296962
@@ -876,7 +876,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
       propertyPath: m_Name
-      value: KMC(06) Time Machine (2)
+      value: KMC(06) Time Carpet
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
       propertyPath: m_Layer
@@ -1091,7 +1091,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
       propertyPath: m_Name
-      value: KMC(06) Time Machine (1)
+      value: KMC(06) Time Machine
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
       propertyPath: m_Layer
@@ -1168,7 +1168,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
       propertyPath: m_Name
-      value: KMC(06) Time Machine
+      value: KMC(06) Time Machine Collider
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: d7d74f1ac6500914eb5c453011f96e70, type: 3}
       propertyPath: m_Layer
