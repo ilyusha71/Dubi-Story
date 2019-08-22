@@ -78141,6 +78141,63 @@ MonoBehaviour:
   sparks: {fileID: 0}
   cameraDistanceChange: 0
   cameraHeightChange: 0
+--- !u!1001 &1311137011
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 100000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_Name
+      value: KMC(12) Reindeer [Sleigh] (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -47.64
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 499.471
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.5055561
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_RootOrder
+      value: 37
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
 --- !u!1 &1313057228
 GameObject:
   m_ObjectHideFlags: 0
@@ -104501,7 +104558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.32
+      value: -56.22
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
       propertyPath: m_LocalPosition.y
@@ -104543,6 +104600,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 80e94e51bbf448440adcc64a0938cc16, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd91cad02e5d2764b9eb0be652b9ed59, type: 3}
 --- !u!1 &1744285152
