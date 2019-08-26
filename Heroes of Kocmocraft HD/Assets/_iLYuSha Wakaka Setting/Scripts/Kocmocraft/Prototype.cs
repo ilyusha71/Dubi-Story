@@ -1,87 +1,194 @@
 ﻿using Cinemachine;
 using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Kocmoca
 {
     public class Prototype : MonoBehaviour
     {
-        [Header ("Skin")]
-        public GameObject[] skin; // skin[0] 留给 Blueprint
+      
+        [Header ("Model")]
+        public Mesh mesh;
+        public Vector3 centre;
+        public Vector3 size;
+        [Header ("Painting")]
+        public GameObject[] painting;
         [SerializeField]
-        private int countSkin;
-        private int nowSkin = 1;
-        private int lastSkin = 1;
+        private int countPainting;
+        [SerializeField]
+        private int nowPainting = 1;
+        [SerializeField]
+        private int lastPainting = 1;
+        private readonly int mainPainting = 2;
         [Header ("FreeLook")]
         public CinemachineFreeLook cmFreeLook;
 
-        void Reset ()
+        public void Reset ()
         {
-            Transform[] objects = GetComponentsInChildren<Transform> ();
-            for (int i = 0; i < objects.Length; i++)
-            {
-                objects[i].gameObject.layer = 9;
-            }
+            // 若模型有子物件，生成一個合併的Mesh，並用於後續計算使用
+            Transform model = transform.GetChild (2); // 2 = Painting I
+            if (model.childCount > 0)
+                mesh = CombineMesh (model.gameObject);
+            // else if (model.childCount == 1)
+            //     mesh = model.GetComponentInChildren<MeshFilter> ().sharedMesh;
+            else
+                mesh = model.GetComponent<MeshFilter> ().sharedMesh;
+            centre = mesh.bounds.center;
+            size = mesh.bounds.size;
 
-            CheckSkin ();
+            CheckPainting ();
             Debug.Log ("<color=lime>" + name + " data has been preset.</color>");
         }
-        #region Skin
-        void CheckSkin ()
+
+        /* 網格合併 */
+        public Mesh CombineMesh (GameObject obj)
         {
-            countSkin = transform.childCount - 1; // 扣除 Free Look Camera
-            skin = new GameObject[countSkin];
-            for (int i = 0; i < countSkin; i++)
+            string MESH_PATH = "Assets/___iLYuSha_Mod/Wakaka Kocmocraft/Meshes/";
+            if (obj.GetComponent<MeshRenderer> () == null)
             {
-                skin[i] = transform.GetChild (i).gameObject;
+                obj.AddComponent<MeshRenderer> ();
             }
-            countSkin--; // 預設第一項為 Blueprint
+            if (obj.GetComponent<MeshFilter> () == null)
+            {
+                obj.AddComponent<MeshFilter> ();
+            }
+
+            List<Material> material = new List<Material> ();
+            Matrix4x4 matrix = obj.transform.worldToLocalMatrix;
+            MeshFilter[] filters = obj.GetComponentsInChildren<MeshFilter> ();
+            int filterLength = filters.Length;
+            CombineInstance[] combine = new CombineInstance[filterLength];
+            for (int i = 0; i < filterLength; i++)
+            {
+                MeshFilter filter = filters[i];
+                MeshRenderer render = filter.GetComponent<MeshRenderer> ();
+                if (render == null)
+                {
+                    continue;
+                }
+                if (render.sharedMaterial != null && !material.Contains (render.sharedMaterial))
+                {
+                    material.Add (render.sharedMaterial);
+                }
+                combine[i].mesh = filter.sharedMesh;
+                //对坐标系施加变换的方法是 当前对象和子对象在世界空间中的矩阵 左乘 当前对象从世界空间转换为本地空间的变换矩阵
+                //得到当前对象和子对象在本地空间的矩阵。
+                combine[i].transform = matrix * filter.transform.localToWorldMatrix;
+                // render.enabled = false;
+            }
+
+            MeshFilter meshFilter = obj.GetComponent<MeshFilter> ();
+            Mesh mesh = new Mesh ();
+            mesh.name = "Combine";
+            //合并Mesh
+            mesh.CombineMeshes (combine);
+            meshFilter.sharedMesh = mesh;
+            //合并第二套UV
+            Unwrapping.GenerateSecondaryUVSet (meshFilter.sharedMesh);
+            MeshRenderer renderer = obj.GetComponent<MeshRenderer> ();
+            renderer.sharedMaterials = material.ToArray ();
+            renderer.enabled = true;
+
+            MeshCollider collider = new MeshCollider ();
+            if (collider != null)
+            {
+                collider.sharedMesh = mesh;
+            }
+            string tempPath = MESH_PATH + obj.name + " _mesh.asset";
+            AssetDatabase.CreateAsset (meshFilter.sharedMesh, tempPath);
+            //PrefabUtility.DisconnectPrefabInstance(obj);
+            Mesh target = meshFilter.sharedMesh;
+            DestroyImmediate (obj.GetComponent<MeshFilter> ());
+            DestroyImmediate (obj.GetComponent<MeshRenderer> ());
+            return target;
         }
-        public void LoadSkin (int order)
+        /* 對齊質心 */
+        public void AlignCentre ()
         {
-            nowSkin = order == 0 ? 1 : order; // skin[1] 为经典造型
-            for (int i = 0; i < skin.Length; i++)
+            for (int i = 0; i < countPainting; i++)
             {
-                skin[i].SetActive (false);
+                painting[i].transform.localPosition = -centre;
             }
-            skin[nowSkin].SetActive (true);
         }
-        public int ChangeSkin ()
+        /* 對齊底座 */
+        public void AlignBase ()
         {
-            nowSkin = (int) Mathf.Repeat (++nowSkin, skin.Length) == 0 ? 1 : nowSkin;
-            for (int i = 0; i < skin.Length; i++)
+            for (int i = 0; i < countPainting; i++)
             {
-                skin[i].SetActive (false);
+                painting[i].transform.localPosition = -centre + new Vector3 (0, 0.5f * size.y, 0);
             }
-            skin[nowSkin].SetActive (true);
-            return nowSkin;
+        }
+
+        #region Painting
+        void CheckPainting ()
+        {
+            countPainting = transform.childCount - 1; // 扣除 Free Look Camera
+            painting = new GameObject[countPainting];
+            for (int i = 0; i < countPainting; i++)
+            {
+                painting[i] = transform.GetChild (i).gameObject;
+                painting[i].SetActive (true);
+                Transform[] objects = painting[i].GetComponentsInChildren<Transform> ();
+                for (int j = 0; j < objects.Length; j++)
+                {
+                    objects[j].gameObject.layer = 9;
+                }
+                if (i != 0 && i != mainPainting)
+                    painting[i].SetActive (false);
+            }
+            nowPainting = mainPainting;
+            gameObject.layer = 9;
+        }
+        public void LoadPainting (int order)
+        {
+            nowPainting = order == 0 ? mainPainting : order; // painting[2] = Painting I
+            for (int i = 1; i < countPainting; i++) // painting[0] 為 Collider
+            {
+                painting[i].SetActive (false);
+            }
+            painting[nowPainting].SetActive (true);
+        }
+        public int ChangePainting ()
+        {
+            nowPainting = (int) Mathf.Repeat (++nowPainting, painting.Length) == 0 ? mainPainting : nowPainting;
+            for (int i = 1; i < countPainting; i++) // painting[0] 為 Collider
+            {
+                painting[i].SetActive (false);
+            }
+            painting[nowPainting].SetActive (true);
+            return nowPainting;
         }
         public void SwitchWireframe ()
         {
-            if (nowSkin == 0)
-                nowSkin = lastSkin;
+            if (nowPainting == 1)
+                nowPainting = lastPainting;
             else
             {
-                lastSkin = nowSkin;
-                nowSkin = 0;
+                lastPainting = nowPainting;
+                nowPainting = 1;
             }
-            for (int i = 0; i < skin.Length; i++)
+            for (int i = 1; i < countPainting; i++) // painting[0] 為 Collider
             {
-                skin[i].SetActive (false);
+                painting[i].SetActive (false);
             }
-            skin[nowSkin].SetActive (true);
+            painting[nowPainting].SetActive (true);
         }
-        public int GetRandomSkinIndex ()
+        public int GetRandomPaintingIndex ()
         {
-            return Random.Range (1, countSkin);
+            return Random.Range (mainPainting, countPainting);
         }
-        public void RandomSkin ()
+        public void RandomPainting ()
         {
-            nowSkin = Random.Range (1, countSkin);
-            for (int i = 0; i < skin.Length; i++)
+            nowPainting = Random.Range (mainPainting, countPainting);
+            for (int i = 1; i < countPainting; i++) // painting[0] 為 Collider
             {
-                skin[i].SetActive (false);
+                painting[i].SetActive (false);
             }
-            skin[nowSkin].SetActive (true);
+            painting[nowPainting].SetActive (true);
         }
         #endregion
 
@@ -142,4 +249,34 @@ namespace Kocmoca
         }
         #endregion
     }
+
+    #if UNITY_EDITOR
+    [CanEditMultipleObjects]
+    [CustomEditor (typeof (Prototype))]
+    public class PrototypeEdiTor : Editor
+    {
+        public override void OnInspectorGUI ()
+        {
+            DrawDefaultInspector ();
+
+            var scripts = targets.OfType<Prototype> ();
+            if (GUILayout.Button ("Align Centre"))
+                foreach (var script in scripts)
+                    script.AlignCentre ();
+            if (GUILayout.Button ("Align Base"))
+                foreach (var script in scripts)
+                    script.AlignBase ();
+            if (GUILayout.Button ("Change Painting"))
+                foreach (var script in scripts)
+                    script.ChangePainting ();
+            if (GUILayout.Button ("Random Painting"))
+                foreach (var script in scripts)
+                    script.RandomPainting ();
+            if (GUILayout.Button ("Switch Wireframe"))
+                foreach (var script in scripts)
+                    script.SwitchWireframe ();
+            UnityEditor.AssetDatabase.SaveAssets ();
+        }
+    }
+#endif
 }

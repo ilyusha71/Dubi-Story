@@ -105,7 +105,7 @@ namespace Kocmoca
             m_Port = port;
             m_Faction = m_Port % 2;
             m_Type = type;
-            m_Skin = kocmocraft[m_Type].GetComponentInChildren<Prototype> ().GetRandomSkinIndex ();
+            m_Skin = kocmocraft[m_Type].GetComponentInChildren<Prototype> ().GetRandomPaintingIndex ();
             photonView.RPC ("SynchronizeBotPlayerKocmoport", RpcTarget.Others, m_Port, m_Type, m_Skin);
             m_Number = port * 1000;
             name = KocmocraftData.GetBotName (m_Port);
@@ -146,7 +146,7 @@ namespace Kocmoca
         public void Takeoff ()
         {
             GameObject go = Instantiate (kocmocraft[m_Type], rootTransform);
-            go.GetComponentInChildren<Prototype> ().LoadSkin (m_Skin);
+            go.GetComponentInChildren<Prototype> ().LoadPainting (m_Skin);
             // ObserverCamera
             SatelliteCommander.Instance.AddSearchArray (rootTransform, m_Port / 2, (int) m_Faction, m_Number);
             // Kocmonaut Info ( first time only )
@@ -266,7 +266,7 @@ namespace Kocmoca
             object indexSkin;
             if (photonView.Owner.CustomProperties.TryGetValue (LobbyInfomation.PLAYER_SKIN_OPTION, out indexSkin))
             {
-                GetComponentInChildren<Prototype> ().LoadSkin ((int) indexSkin);
+                GetComponentInChildren<Prototype> ().LoadPainting ((int) indexSkin);
             }
 
             name = photonView.Owner.NickName + "-" +
@@ -311,7 +311,7 @@ namespace Kocmoca
             object indexSkin;
             if (photonView.Owner.CustomProperties.TryGetValue (LobbyInfomation.PLAYER_SKIN_OPTION, out indexSkin))
             {
-                GetComponentInChildren<Prototype> ().LoadSkin ((int) indexSkin);
+                GetComponentInChildren<Prototype> ().LoadPainting ((int) indexSkin);
             }
 
             name = photonView.Owner.NickName + "-" +
@@ -338,7 +338,7 @@ namespace Kocmoca
                 ')'
             }) [1]));
             m_Number = KocmocraftData.GetKocmonautNumber (m_Port);
-            GetComponentInChildren<Prototype> ().RandomSkin ();
+            GetComponentInChildren<Prototype> ().RandomPainting ();
             name = KocmocraftData.GetBotName (m_Port) + "-" +
                 DesignData.Code[(int) m_Type] + "-" +
                 DesignData.Project[(int) m_Type];

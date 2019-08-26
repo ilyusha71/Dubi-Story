@@ -97,7 +97,7 @@ namespace Kocmoca
             {
                 audioButtonPress.clip = sfxChangePainting;
                 audioButtonPress.Play ();
-                PlayerPrefs.SetInt (LobbyInfomation.PREFS_SKIN + hangarIndex, prototype[hangarIndex].ChangeSkin ());
+                PlayerPrefs.SetInt (LobbyInfomation.PREFS_SKIN + hangarIndex, prototype[hangarIndex].ChangePainting ());
             });
             btnSwitchWireframe.onClick.AddListener (() =>
             {
